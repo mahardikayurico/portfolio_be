@@ -1,0 +1,36 @@
+{
+  "name": "hiringme_be",
+  "version": "0.0.1",
+  "description": "api service for hiringme project, build with express and postgreesql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berkahjayaabadi/hiringme_be.git"
+  },
+  "keywords": [
+    "backend",
+    "service",
+    "server",
+    "coffeshop"
+  ],
+  "author": "mahardika yurico",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/berkahjayaabadi/hiringme_be/issues"
+  },
+  "homepage": "https://github.com/berkahjayaabadi/hiringme_be#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.8.0",
+    "uuidv4": "^6.2.13"
+  }
+}

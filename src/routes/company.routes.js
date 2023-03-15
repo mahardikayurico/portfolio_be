@@ -1,0 +1,13 @@
+const express = require("express");
+const router = express();
+const verifyToken = require("../helper/verifyToken");
+//import controller=
+const companyController = require("../controller/company.controller");
+const formUpload = require("../helper/upload");
+
+router.get("/", verifyToken, companyController.get);
+router.get("/:id", companyController.getDetail);
+router.patch("/:id", formUpload.single("image"), companyController.update);
+router.delete("/:id", companyController.remove);
+
+module.exports = router;
