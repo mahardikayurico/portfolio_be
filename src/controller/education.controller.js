@@ -1,30 +1,12 @@
-const companyModel = require("../model/company.model");
+const educationModel = require("../model/education.model");
 const bcrypt = require("bcrypt");
 // const jwt = require("jsonwebtoken");
 // const { JWT_PRIVATE_KEY } = process.env;
-const Pagination = {
-  page: (page, limit) => {
-    let result = (page - 1) * limit + 1;
-    return result ? result : 0;
-  },
-};
 
-const companyController = {
-  get: (req, res) => {
-    let { search, companySector, sortBy, page, limit } = req.query;
-    let offset = Pagination.page(page, limit);
-    return companyModel
-      .get(search, companySector, sortBy, limit, offset)
-      .then((result) => {
-        return res.status(200).send({ message: "success", data: result });
-      })
-      .catch((error) => {
-        return res.status(500).send({ message: error });
-      });
-  },
+const educationController = {
   getDetail: (req, res) => {
     // const id = req.params.id;
-    return companyModel
+    return educationModel
       .getDetail(req.params.id)
       .then((result) => {
         return res.status(200).send({ message: "success", data: result });
@@ -45,7 +27,7 @@ const companyController = {
           image: req.file.filename,
           password: hash,
         };
-        return companyModel
+        return educationModel
           .update(request)
           .then((result) => {
             if (typeof result.oldImages != "undefined") {
@@ -64,7 +46,7 @@ const companyController = {
     });
   },
   remove: (req, res) => {
-    return companyModel
+    return educationModel
       .remove(req.params.id)
       .then((result) => {
         return res.status(200).send({ message: "success", data: result });
@@ -75,4 +57,4 @@ const companyController = {
   },
 };
 
-module.exports = companyController;
+module.exports = educationController;

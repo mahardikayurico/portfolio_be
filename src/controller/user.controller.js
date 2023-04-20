@@ -11,21 +11,8 @@ const Pagination = {
 
 const userController = {
   get: (req, res) => {
-    let { search, jobType, sortBy, page, limit } = req.query;
-    let offset = Pagination.page(page, limit);
     return userModel
-      .get(search, jobType, sortBy, limit, offset)
-      .then((result) => {
-        return res.status(200).send({ message: "success", data: result });
-      })
-      .catch((error) => {
-        return res.status(500).send({ message: error });
-      });
-  },
-  getDetail: (req, res) => {
-    // const id = req.params.id;
-    return userModel
-      .getDetail(req.params.id)
+      .get(req.params.id)
       .then((result) => {
         return res.status(200).send({ message: "success", data: result });
       })
@@ -62,16 +49,6 @@ const userController = {
           });
       }
     });
-  },
-  remove: (req, res) => {
-    return userModel
-      .remove(req.params.id)
-      .then((result) => {
-        return res.status(200).send({ message: "success", data: result });
-      })
-      .catch((error) => {
-        return res.status(500).send({ message: error });
-      });
   },
 };
 

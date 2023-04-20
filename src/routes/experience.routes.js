@@ -5,9 +5,7 @@ const verifyToken = require("../helper/verifyToken");
 const experienceController = require("../controller/experience.controller");
 const formUpload = require("../helper/upload");
 
-router.post("/:userId", experienceController.add);
 router.get("/:userId", experienceController.getByUserId);
 router.patch("/:id", experienceController.update);
-router.delete("/:id", experienceController.remove);
 
 module.exports = router;

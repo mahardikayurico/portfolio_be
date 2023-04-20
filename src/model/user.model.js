@@ -1,73 +1,18 @@
 const db = require("../helper/connection");
 const { v4: uuidv4 } = require("uuid");
 const userModel = {
-  query: (search, jobType, sortBy, limit, offset) => {
-    let orderQuery = `ORDER BY job_type ${sortBy} LIMIT ${limit} OFFSET ${offset}`;
-
-    if (!search && !jobType) {
-      return orderQuery;
-    } else if (search && jobType) {
-      return `WHERE job_type LIKE '%${search}%' AND job_type LIKE '${jobType}%' ${orderQuery}`;
-    } else if (search || jobType) {
-      return `WHERE job_type LIKE '%${search}%' OR job_type LIKE '${jobType}%' ${orderQuery}`;
-    } else {
-      return orderQuery;
-    }
-  },
-
-  get: function (search, jobType, sortBy = "ASC", limit = 20, offset = 0) {
+  get: (id) => {
     return new Promise((resolve, reject) => {
-      db.query(
-        `SELECT * from users_worker ${this.query(
-          search,
-          jobType,
-          sortBy,
-          limit,
-          offset
-        )}`,
-        (err, result) => {
-          if (err) {
-            return reject(err.message);
-          } else {
-            return resolve(result.rows);
-          }
-        }
-      );
-    });
-  },
-  // getDetail: (id) => {
-  //   return new Promise((resolve, reject) => {
-  //     db.query(`SELECT * from users_worker WHERE id='${id}'`, (err, result) => {
-  //       if (err) {
-  //         return reject(err.message);
-  //       } else {
-  //         return resolve(result.rows[0]);
-  //       }
-  //     });
-  //   });
-  // },
-  getDetail: (id) => {
-    return new Promise((resolve, reject) => {
-      db.query(`SELECT * from users_worker WHERE id='${id}'`, (err, result) => {
+      db.query(`SELECT * FROM resume WHERE id='${id}'`, (err, result) => {
         if (err) {
           return reject(err.message);
         } else {
-          const user = result.rows[0];
-          db.query(
-            `SELECT * from skill WHERE user_id = '${id}'`,
-            (err, result) => {
-              if (err) {
-                return reject(err.message);
-              } else {
-                user.skills = result.rows;
-                return resolve(user);
-              }
-            }
-          );
+          return resolve(result.rows);
         }
       });
     });
   },
+
   update: ({
     id,
     fullname,

@@ -1,55 +1,15 @@
 const db = require("../helper/connection");
 const { v4: uuidv4 } = require("uuid");
-const companyModel = {
-  query: (search, companySector, sortBy, limit, offset) => {
-    let orderQuery = `ORDER BY company_sector ${sortBy} LIMIT ${limit} OFFSET ${offset}`;
-
-    if (!search && !companySector) {
-      return orderQuery;
-    } else if (search && companySector) {
-      return `WHERE company_sector LIKE '%${search}%' AND company_sector LIKE '${companySector}%' ${orderQuery}`;
-    } else if (search || companySector) {
-      return `WHERE company_sector  LIKE '%${search}%' OR company_sector LIKE '${companySector}%' ${orderQuery}`;
-    } else {
-      return orderQuery;
-    }
-  },
-
-  get: function (
-    search,
-    companySector,
-    sortBy = "ASC",
-    limit = 20,
-    offset = 0
-  ) {
+const educationModel = {
+  getDetail: (id) => {
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT * from users_company ${this.query(
-          search,
-          companySector,
-          sortBy,
-          limit,
-          offset
-        )}`,
+        `SELECT * from education WHERE id_user='${id}'`,
         (err, result) => {
           if (err) {
             return reject(err.message);
           } else {
             return resolve(result.rows);
-          }
-        }
-      );
-    });
-  },
-  getDetail: (id) => {
-    return new Promise((resolve, reject) => {
-      db.query(
-        `SELECT * from users_company WHERE id='${id}'`,
-        (err, result) => {
-          if (err) {
-            return reject(err.message);
-          } else {
-            return resolve(result.rows[0]);
           }
         }
       );
@@ -132,4 +92,4 @@ const companyModel = {
   },
 };
 
-module.exports = companyModel;
+module.exports = educationModel;
