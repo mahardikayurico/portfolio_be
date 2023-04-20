@@ -3,7 +3,7 @@ const router = express();
 const usersRoute = require("./users.routes");
 const authRoute = require("../routes/auth.routes");
 const skillRoute = require("./skill.routes");
-const portfolioRoute = require("./portfolio.routes");
+const projectsRoute = require("./projects.routes");
 const experienceRoute = require("./experience.routes");
 const educationRoute = require("./education.routes");
 
@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 
 router.use("/users", usersRoute);
 router.use("/skills", skillRoute);
-// router.use("/portfolio", portfolioRoute);
+router.use("/projects", projectsRoute);
 router.use("/experience", experienceRoute);
 
 router.use("/education", educationRoute);
